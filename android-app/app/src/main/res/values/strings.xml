@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Measurement App</string>
+    <string name="login_title">Welcome</string>
+    <string name="login_subtitle">Log in to continue</string>
+    <string name="login_with_phone_number">Login with phone number</string>
+    <string name="home_title">You are logged in</string>
+    <string name="logout">Log out</string>
+</resources>

@@ -1,0 +1,13 @@
+# Optional: run the server against MySQL (as in production) instead of the in-memory H2 database.
+#   docker compose up -d
+#   ./mvnw -pl measurementkit/measurementkit-application -am spring-boot:run -Dspring-boot.run.profiles=mysql
+services:
+  mysql:
+    image: mysql:8.4
+    environment:
+      MYSQL_DATABASE: measurementkit
+      MYSQL_USER: measurementkit
+      MYSQL_PASSWORD: measurementkit
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3306:3306"

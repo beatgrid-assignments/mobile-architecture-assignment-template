@@ -1,0 +1,55 @@
+measurementkit:
+  version: '@project.version@'
+  sms:
+    # 'log' writes SMS messages to the log instead of sending them (see LoggingSmsSender).
+    provider: log
+
+server:
+  port: 8080
+
+spring:
+  application:
+    name: measurementkit
+  # Local development: in-memory H2 database in MySQL compatibility mode, schema created by Flyway on start-up.
+  datasource:
+    url: jdbc:h2:mem:measurementkit;MODE=MySQL;DATABASE_TO_LOWER=TRUE;DB_CLOSE_DELAY=-1
+    username: sa
+    password:
+  h2:
+    console:
+      enabled: true
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        type:
+          preferred_instant_jdbc_type: TIMESTAMP
+  flyway:
+    locations: classpath:db/migration
+
+logging:
+  level:
+    # Silences the warning about the (incubating) preferred_instant_jdbc_type setting above.
+    org.hibernate.orm.incubating: ERROR
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+
+---
+# MySQL (as in production), see docker-compose.yml
+spring:
+  config:
+    activate:
+      on-profile: mysql
+  datasource:
+    url: jdbc:mysql://localhost:3306/measurementkit
+    username: measurementkit
+    password: measurementkit
+  h2:
+    console:
+      enabled: false
